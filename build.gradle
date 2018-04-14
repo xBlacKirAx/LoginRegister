@@ -3,8 +3,8 @@
 buildscript {
     
     repositories {
-        google()// Sam edited on 04/14/208
-        jcenter()
+        google()// Sam edited on 04/14/208 <-- Success
+        jcenter()// Second modification for testing
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
