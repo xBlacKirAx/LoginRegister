@@ -19,10 +19,18 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class InstructorAreaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button bGenerateVCode;
+    ArrayList<String> cIDList;
+    ArrayList<String> cNameList;
+
+    Date mDate= new Date(System.currentTimeMillis());
+    SimpleDateFormat mDateFormat= new SimpleDateFormat("yyyy-MM-dd");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +38,7 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
 
         final TextView welcomeMessage=findViewById(R.id.tvWelcomeMsg);
         final Spinner spClass = findViewById(R.id.spClass);
-        final Button bCheck= findViewById(R.id.bSign);
+        final Button bCheck= findViewById(R.id.bCheck);
         bGenerateVCode=findViewById(R.id.bGenerateVCode);
 
 
@@ -39,7 +47,6 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
         String name=intent.getStringExtra("name");
         ArrayList<String> cList=intent.getStringArrayListExtra("cList");
         ArrayAdapter<String> adapater=new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,cList);
-
         spClass.setAdapter(adapater);
         spClass.setOnItemSelectedListener(this);
         String message=name+", you are logged in as instructor";
@@ -51,13 +58,20 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         TextView myText=(TextView) view;
         System.out.println(i);
+        final int index=i;
+        Intent intent=getIntent();
+        cIDList=intent.getStringArrayListExtra("cIDList");
+        cNameList=intent.getStringArrayListExtra("cNameList");
+
+
+
+        System.out.println("cIDList:"+cIDList);
         Toast.makeText(this,"You selected "+myText.getText(), Toast.LENGTH_SHORT).show();
         bGenerateVCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=getIntent();
-                final String CID=" ";
-                final String verificationCode=" ";
+
+                final String verificationCode="xxaabb";
                 Response.Listener<String> responseListener=new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -66,27 +80,30 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorAreaActivity.this);
-                                builder.setMessage("You are signed in!")
+                                builder.setMessage("You code is generated: "+verificationCode)
                                         .setNegativeButton("Back",null)
                                         .create()
                                         .show();
                             }else{
+                                String vCodeGenerated=jsonResponse.getString("code");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InstructorAreaActivity.this);
-                                builder.setMessage("There are something wrong, please try again.")
+                                builder.setMessage("Your code has already been generated: "+vCodeGenerated)
                                         .setNegativeButton("Back",null)
                                         .create()
                                         .show();
                             }
                         }catch(JSONException e){
                             e.printStackTrace();
+                            System.out.println(response);
                         }
                     }
                 };
-                InstructorAreaRequest instructorAreaRequest = new InstructorAreaRequest(CID,verificationCode, responseListener);
+                InstructorAreaRequest instructorAreaRequest = new InstructorAreaRequest(cIDList.get(index),verificationCode,mDate, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(InstructorAreaActivity.this);
                 queue.add(instructorAreaRequest);
             }
         });
+
     }
 
     @Override

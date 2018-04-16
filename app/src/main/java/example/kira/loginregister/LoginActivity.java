@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("cList", cList);
                                 intent.putExtra("cIDList",cIDList);
                                 intent.putExtra("cNameList",cNameList);
+
                                 LoginActivity.this.startActivity(intent);
                             } else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
