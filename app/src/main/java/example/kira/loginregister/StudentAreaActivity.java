@@ -89,6 +89,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                         try{
                                             JSONObject jsonResponse=new JSONObject(response);
                                             boolean success = jsonResponse.getBoolean("success");
+                                            String errorResponse=jsonResponse.getString("response");
                                             if(success){
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(StudentAreaActivity.this);
                                                 builder.setMessage("You are signed in!")
@@ -97,7 +98,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                                         .show();
                                             }else{
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(StudentAreaActivity.this);
-                                                builder.setMessage("There are something wrong, please try again.")
+                                                builder.setMessage(errorResponse)
                                                         .setNegativeButton("Back",null)
                                                         .create()
                                                         .show();
