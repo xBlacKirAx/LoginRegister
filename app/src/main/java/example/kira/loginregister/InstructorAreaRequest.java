@@ -12,12 +12,11 @@ import java.util.Map;
 class InstructorAreaRequest extends StringRequest {
     private static final String INSTRUCTOR_AREA_REQUEST_URL="http://xzhou26.000webhostapp.com/InstructorArea.php";
     private Map<String, String> params;
-    public InstructorAreaRequest(String cID, String verificationCode, Date date, Response.Listener<String> listener){
+    public InstructorAreaRequest(String cID, String verificationCode,  Response.Listener<String> listener){
         super(Request.Method.POST,INSTRUCTOR_AREA_REQUEST_URL,listener,null);
         params=new HashMap<>();
         params.put("cID",cID);
         params.put("verificationCode",verificationCode);
-        params.put("date",date.toString());
     }
     @Override
     public Map<String, String> getParams() {

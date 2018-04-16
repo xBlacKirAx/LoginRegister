@@ -60,13 +60,17 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (Ssuccess) {
                                 String name = jsonResponse.getString("Name");
-
+                                String sID=jsonResponse.getString("ID");
                                 System.out.println(json.toString());
                                 convertJSONObjectToArrary(jsonClassList,jsonClassID,jsonClassName);
 
                                 Intent intent = new Intent(LoginActivity.this, StudentAreaActivity.class);
                                 intent.putExtra("name", name);
                                 intent.putExtra("cList", cList);
+                                intent.putExtra("cIDList",cIDList);
+                                intent.putExtra("cNameList",cNameList);
+                                intent.putExtra("sID",sID);
+                                //TODO 获取GPS并传入intent.putExtra
                                 LoginActivity.this.startActivity(intent);
                             } else if(Isuccess){
                                 String name = jsonResponse.getString("Name");

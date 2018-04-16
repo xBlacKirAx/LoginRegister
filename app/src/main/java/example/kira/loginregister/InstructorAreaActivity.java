@@ -19,18 +19,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 
 public class InstructorAreaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button bGenerateVCode;
     ArrayList<String> cIDList;
     ArrayList<String> cNameList;
 
-    Date mDate= new Date(System.currentTimeMillis());
-    SimpleDateFormat mDateFormat= new SimpleDateFormat("yyyy-MM-dd");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +62,6 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
 
 
 
-        System.out.println("cIDList:"+cIDList);
         Toast.makeText(this,"You selected "+myText.getText(), Toast.LENGTH_SHORT).show();
         bGenerateVCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +94,7 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
                         }
                     }
                 };
-                InstructorAreaRequest instructorAreaRequest = new InstructorAreaRequest(cIDList.get(index),verificationCode,mDate, responseListener);
+                InstructorAreaRequest instructorAreaRequest = new InstructorAreaRequest(cIDList.get(index),verificationCode, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(InstructorAreaActivity.this);
                 queue.add(instructorAreaRequest);
             }
