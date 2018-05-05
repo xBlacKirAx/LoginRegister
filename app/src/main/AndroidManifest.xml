@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".StudentAreaActivity" />
+        <activity android:name=".InstructorAttendActivity" />
         <activity android:name=".InstructorAreaActivity"></activity>
+
     </application>
 
 </manifest>
