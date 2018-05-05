@@ -44,36 +44,12 @@ public class InstructorAttendActivity extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendence);
         back = findViewById(R.id.back);
-        Spinner spDate = findViewById(R.id.spDate);
-
         current = findViewById(R.id.Current);
+
+        final Spinner spDate = findViewById(R.id.spDate);
         final TextView attend = findViewById(R.id.attend);
-        attend.setText("Please press the button Current for today class attendence list");
         Intent intent = getIntent();
         cID = intent.getStringExtra("cIDa");
-
-//        Response.Listener<String> responseListener = new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONObject json = new JSONObject(response);
-//                    JSONObject jsonResponse = new JSONObject(json.getString("response"));
-//                    boolean success = jsonResponse.getBoolean("success");
-//                    if (success) {
-//                        JSONObject jsonAID = new JSONObject(json.getString("aID"));
-//                        convertJSONObjectToArrary(jsonAID);
-//
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    System.out.println(response);
-//                }
-//            }
-//        };
-//        InstructorSpAttendRequest instructorSpAttendRequest = new InstructorSpAttendRequest(cID, responseListener);
-//        RequestQueue queue = Volley.newRequestQueue(InstructorAttendActivity.this);
-//        queue.add(instructorSpAttendRequest);
-
 
         getDateBack();
         ArrayAdapter<String> ada=new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,attendList);
@@ -99,6 +75,7 @@ public class InstructorAttendActivity extends AppCompatActivity implements Adapt
                                     for (int j = attendList.size() - 1; j >= 0; j--) {
                                         attend.append(attendList.get(j) + "\n");
                                     }
+                                    System.out.print(attend);
                                     getDateBack();
                                 }
                             } catch (JSONException e) {
@@ -112,17 +89,46 @@ public class InstructorAttendActivity extends AppCompatActivity implements Adapt
                     queue.add(instructorAttendRequest);
                 }
             });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            JSONObject jsonResponse = new JSONObject(json.getString("response"));
+                            boolean success = jsonResponse.getBoolean("success");
+                            date = "2018-04-16";
+                            if (success) {
+                                JSONObject jsonAID = new JSONObject(json.getString("aID"));
+                                convertJSONObjectToArrary(jsonAID);
+                                attend.setText("");
+                                for (int j = attendList.size() - 1; j >= 0; j--) {
+                                    attend.append(attendList.get(j) + "\n");
+                                }
+                                System.out.print(attend);
+                                getDateBack();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            System.out.println(response);
+                        }
+                    }
+                };
+                InstructorGetSpRequest instructorGetSpRequest = new InstructorGetSpRequest(cID, date, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(InstructorAttendActivity.this);
+                queue.add(instructorGetSpRequest);
+            }
+        });
         }
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            String text = adapterView.getItemAtPosition(i).toString();
-            System.out.println(i);
-//            final int index = i;
-//            spList=attendList;
-//            Intent intent = getIntent();
-//            cIDList = intent.getStringArrayListExtra("cIDList");
-//            cNameList = intent.getStringArrayListExtra("cNameList");
-            Toast.makeText(adapterView.getContext(),text, Toast.LENGTH_SHORT);
+                TextView myText=(TextView) view;
+                System.out.println(i);
+                date = myText.toString();
+                Toast.makeText(adapterView.getContext(),myText.getText(), Toast.LENGTH_SHORT);
 
         }
         public void onNothingSelected(AdapterView<?> adapterView) {
@@ -134,7 +140,6 @@ public class InstructorAttendActivity extends AppCompatActivity implements Adapt
             try {
                 while (x.hasNext()) {
                     String key = (String) x.next();
-                    //System.out.println(aID.get(key).toString());
                     attendList.add(aID.get(key).toString());
                 }
 
@@ -168,7 +173,7 @@ public class InstructorAttendActivity extends AppCompatActivity implements Adapt
 
 
         final ArrayList<String> attendList = new ArrayList<>();
-        ArrayList<String> spList = new ArrayList<>();
+        String date = "";
 }
 
 
