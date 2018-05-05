@@ -16,7 +16,8 @@ class InstructorGetSpRequest extends StringRequest {
         super(Request.Method.POST,INSTRUCTOR_Attend_REQUEST_URL,listener,null);
         params=new HashMap<>();
         params.put("cID",cID);
-        params.put("spDate",date);
+        params.put("spDate",date); //hihihihihihihihihihihihihihi
+        
 
     }
 
