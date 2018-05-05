@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,15 +19,20 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class InstructorAreaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button bGenerateVCode;
     ArrayList<String> cIDList;
     ArrayList<String> cNameList;
+    final ArrayList<String> aIDList = new ArrayList<>();
+    Button bCheck;
+    final String verificationCode="xxaabb";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
 
         final TextView welcomeMessage=findViewById(R.id.tvWelcomeMsg);
         final Spinner spClass = findViewById(R.id.spClass);
-        final Button bCheck= findViewById(R.id.bCheck);
+        bCheck=findViewById(R.id.bCheck);
         bGenerateVCode=findViewById(R.id.bGenerateVCode);
 
 
@@ -67,7 +73,6 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View view) {
 
-                final String verificationCode="xxaabb";
                 Response.Listener<String> responseListener=new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -100,10 +105,58 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
             }
         });
 
+        bCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject json=new JSONObject(response);
+//                            JSONObject jsonResponse = new JSONObject(json.getString("response"));
+//                            boolean success = jsonResponse.getBoolean("success");
+//                            if(success) {
+//                                JSONObject jsonAID = new JSONObject(json.getString("aID"));
+//                                convertJSONObjectToArrary(jsonAID);
+                                Intent intent = new Intent(InstructorAreaActivity.this, InstructorAttendActivity.class);
+                                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.putExtra("cIDa", cIDList.get(index));
+                                //TODO 获取GPS并传入intent.putExtra
+                                InstructorAreaActivity.this.startActivity(intent);
+//                            }
+//                        }catch(JSONException e){
+//                            e.printStackTrace();
+//                            System.out.println(response);
+//                        }
+                    }
+                    };
+
+                    InstructorAttendRequest instructorAttendRequest = new InstructorAttendRequest(cIDList.get(index), verificationCode, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(InstructorAreaActivity.this);
+                queue.add(instructorAttendRequest);
+            }
+        });
+
     }
 
-    @Override
+        @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    protected void convertJSONObjectToArrary(JSONObject aID) {
+        Iterator x = aID.keys();
+        aIDList.clear();
+        try {
+            while (x.hasNext()) {
+                String key = (String) x.next();
+                //System.out.println(aID.get(key).toString());
+                aIDList.add(aID.get(key).toString());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

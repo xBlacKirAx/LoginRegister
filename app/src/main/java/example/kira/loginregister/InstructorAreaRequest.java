@@ -18,6 +18,7 @@ class InstructorAreaRequest extends StringRequest {
         params.put("cID",cID);
         params.put("verificationCode",verificationCode);
     }
+
     @Override
     public Map<String, String> getParams() {
         return params;

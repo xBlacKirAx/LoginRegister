@@ -26,18 +26,18 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     final ArrayList<String> cIDList=new ArrayList<>();
-    final ArrayList<String> cNameList=new ArrayList<>();
-    final ArrayList<String> cList = new ArrayList<>();
+        final ArrayList<String> cNameList=new ArrayList<>();
+        final ArrayList<String> cList = new ArrayList<>();
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_login);
 
-        final EditText etID =  findViewById(R.id.etID);
-        final EditText etPassword =  findViewById(R.id.etPassword);
-        final Button bLogin =  findViewById(R.id.bLogin);
+            final EditText etID =  findViewById(R.id.etID);
+            final EditText etPassword =  findViewById(R.id.etPassword);
+            final Button bLogin =  findViewById(R.id.bLogin);
 
 
         bLogin.setOnClickListener(new View.OnClickListener() {
