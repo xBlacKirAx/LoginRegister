@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     final ArrayList<String> cNameList=new ArrayList<>();
     final ArrayList<String> cList = new ArrayList<>();
 
-//fffff
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etID =  findViewById(R.id.etID);
         final EditText etPassword =  findViewById(R.id.etPassword);
         final Button bLogin =  findViewById(R.id.bLogin);
-
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override

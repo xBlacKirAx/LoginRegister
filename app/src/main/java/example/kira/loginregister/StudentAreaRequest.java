@@ -12,12 +12,14 @@ class StudentAreaRequest extends StringRequest {
     private Map<String, String> params;
 
     //TODO 把GPS坐标作为参数加入进这个METHOD
-    public StudentAreaRequest(String studentID, String classID,String verificationCode, Response.Listener<String> listener){
+    public StudentAreaRequest(String studentID, String classID, String verificationCode, String langtitude, String longtitude, Response.Listener<String> listener){
         super(Request.Method.POST,STUDENT_AREA_REQUEST_URL,listener,null);
         params=new HashMap<>();
         params.put("sID",studentID);
         params.put("cID",classID);
         params.put("verificationCode",verificationCode);
+        params.put("langtitude", langtitude);
+        params.put("longtitude",longtitude);
     }
 
     @Override

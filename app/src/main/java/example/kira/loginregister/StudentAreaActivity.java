@@ -1,7 +1,10 @@
 package example.kira.loginregister;
 
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +33,10 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
     Button bSign;
     ArrayList<String> cIDList;
     ArrayList<String> cNameList;
+    double langtitude = 0;
+    double longtitude = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,6 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
         final TextView welcomeMessage=findViewById(R.id.tvWelcomeMsg);
         final Spinner spClass =findViewById(R.id.spClass);
         bSign=findViewById(R.id.bSign);
-
 
 
         Intent intent=getIntent();
@@ -51,9 +57,21 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
         welcomeMessage.setText(message);
 
 
-
+        //Get location
+        Intent gpsIntent = new Intent(this, getPosition.class);
+        startActivityForResult(gpsIntent,10010);
 
     }
+
+    //Get position from getPosition.class
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==10010){
+            langtitude = data.getDoubleExtra("langtitude",0);
+            longtitude = data.getDoubleExtra("longtitude",0);
+        }
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -73,6 +91,8 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                 AlertDialog.Builder builder=new AlertDialog.Builder(StudentAreaActivity.this);
                 LayoutInflater inflater=StudentAreaActivity.this.getLayoutInflater();
                 final View rootView=inflater.inflate(R.layout.dialog_student_enter_vcode,null);
+
+
                 builder.setView(rootView)
                         .setPositiveButton("Sign in!", new DialogInterface.OnClickListener() {
                             @Override
@@ -82,6 +102,10 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                 final String vCode=verificationCode.getText().toString();
                                 System.out.println(sID+" "+cIDList.get(index));
                                 System.out.println(vCode);
+
+
+
+
 
                                 Response.Listener<String> responseListener=new Response.Listener<String>() {
                                     @Override
@@ -109,7 +133,8 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                         }
                                     }
                                 };
-                                StudentAreaRequest studentAreaRequest = new StudentAreaRequest(sID,cIDList.get(index),vCode, responseListener);
+
+                                StudentAreaRequest studentAreaRequest = new StudentAreaRequest(sID,cIDList.get(index),vCode, Double.toString(langtitude), Double.toString(longtitude), responseListener);
                                 RequestQueue queue = Volley.newRequestQueue(StudentAreaActivity.this);
                                 queue.add(studentAreaRequest);
                             }
@@ -118,24 +143,14 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                         .setTitle(cIDList.get(index)+" "+cNameList.get(index))
                         .create()
                         .show();
-
-
             }
         });
-
-
-
-
-//        AlertDialog.Builder builder = new AlertDialog.Builder(StudentAreaActivity.this);
-//        builder.setMessage("Do you want to sign in this class?")
-//                .setPositiveButton("Yes",null)
-//                .setNegativeButton("No", null)
-//                .create()
-//                .show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
 }
