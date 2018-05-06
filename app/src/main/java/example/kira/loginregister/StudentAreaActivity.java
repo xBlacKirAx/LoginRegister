@@ -92,7 +92,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                             String errorResponse=jsonResponse.getString("response");
                                             if(success){
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(StudentAreaActivity.this);
-                                                builder.setMessage("You are signed in!")
+                                                builder.setMessage(errorResponse)
                                                         .setNegativeButton("Back",null)
                                                         .create()
                                                         .show();
