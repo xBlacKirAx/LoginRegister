@@ -26,23 +26,22 @@
         android:id="@+id/spClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:addStatesFromChildren="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bSign"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="131dp"
         android:text="Please select the class you want to sign in:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bSign"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,10 +49,21 @@
         android:id="@+id/bSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="44dp"
         android:text="Sign in!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bTemp"
         app:layout_constraintTop_toBottomOf="@+id/spClass" />
+
+    <Button
+        android:id="@+id/bTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="105dp"
+        android:text="ClearFile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
