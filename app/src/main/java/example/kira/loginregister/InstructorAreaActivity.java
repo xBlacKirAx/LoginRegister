@@ -130,11 +130,10 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
                     }
                     };
 
-//                    InstructorAttendRequest instructorAttendRequest = new InstructorAttendRequest(cIDList.get(index), verificationCode, responseListener);
 
-                    InstructorSpAttendRequest instructorSpAttendRequest=new InstructorSpAttendRequest(cIDList.get(index).toString(),responseListener);
+                    InstructorGetDateListRequest instructorGetDateListRequest =new InstructorGetDateListRequest(cIDList.get(index).toString(),responseListener);
                     RequestQueue queue = Volley.newRequestQueue(InstructorAreaActivity.this);
-                    queue.add(instructorSpAttendRequest);
+                    queue.add(instructorGetDateListRequest);
             }
         });
 
