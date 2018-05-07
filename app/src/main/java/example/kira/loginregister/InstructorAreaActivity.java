@@ -30,7 +30,7 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
     ArrayList<String> cNameList;
     final ArrayList<String> dateList = new ArrayList<>();
     Button bCheck;
-    final String verificationCode="xxaabb";
+    String verificationCode=""+(int)((Math.random()*9+1)*100000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
         bGenerateVCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                verificationCode=""+(int)((Math.random()*9+1)*100000);
                 Response.Listener<String> responseListener=new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
