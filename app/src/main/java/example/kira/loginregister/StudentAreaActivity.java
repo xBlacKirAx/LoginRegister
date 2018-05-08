@@ -202,7 +202,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                                                     .show();
                                             if(jsonResponse.getBoolean("success")){
 
-                                                if(readFile(fileName).contains(cIDList.get(index)+currentDate+sID)){
+                                                if(readFile(fileName).contains(cIDList.get(index)+currentDate)){
                                                     System.out.println(readFile(fileName).substring(readFile(fileName).lastIndexOf(currentDate)+10,readFile(fileName).lastIndexOf(currentDate)+16));
                                                     String cheatSID=readFile(fileName).substring(readFile(fileName).lastIndexOf(currentDate)+10,readFile(fileName).lastIndexOf(currentDate)+16);
                                                     Response.Listener<String> cheatListener=new Response.Listener<String>() {
