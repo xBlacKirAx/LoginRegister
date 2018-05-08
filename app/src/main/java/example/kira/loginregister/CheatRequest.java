@@ -7,11 +7,11 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class cheatRequest extends StringRequest {
+public class CheatRequest extends StringRequest {
     private static final String STUDENT_AREA_REQUEST_URL="http://xzhou26.000webhostapp.com/Cheat.php";
     private Map<String, String> params;
 
-    public cheatRequest(String studentID, String classID, String cheatSID, Response.Listener<String> listener){
+    public CheatRequest(String studentID, String classID, String cheatSID, Response.Listener<String> listener){
         super(Request.Method.POST,STUDENT_AREA_REQUEST_URL,listener,null);
         params=new HashMap<>();
         params.put("sID",studentID);

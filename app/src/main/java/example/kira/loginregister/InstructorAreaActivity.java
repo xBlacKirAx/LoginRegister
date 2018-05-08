@@ -120,7 +120,6 @@ public class InstructorAreaActivity extends AppCompatActivity implements Adapter
                                 Intent intent = new Intent(InstructorAreaActivity.this, InstructorAttendActivity.class);
                                 intent.putExtra("cIDa", cIDList.get(index));
                                 intent.putExtra("dateList",dateList);
-                                //TODO 获取GPS并传入intent.putExtra
                                 InstructorAreaActivity.this.startActivity(intent);
                             }
                         }catch(JSONException e){

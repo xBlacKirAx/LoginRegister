@@ -3,25 +3,17 @@ package example.kira.loginregister;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,16 +30,13 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class StudentAreaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button bSign;
@@ -61,7 +50,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
     Date date = new Date();
     String currentDate=dateFormat.format(date);
 
-    Button bTemp;
+//    Button bTemp;
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,6 +60,8 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
                 public void onReceive(Context context, Intent intent) {
                     latitude = (double) intent.getExtras().get("latitude");
                     longtitude = (double) intent.getExtras().get("longtitude");
+                    Toast.makeText(context, "latitude: " + latitude, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "longtitude: " + longtitude, Toast.LENGTH_SHORT).show();
                     System.out.println("latitude: " + latitude);
                     System.out.println("longtitude: " + longtitude);
                 }
@@ -112,14 +103,14 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
 
         }
 
-        bTemp=findViewById(R.id.bTemp);
-        bTemp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearFile();
-                System.out.println("file: "+readFile(fileName)+"end");
-            }
-        });
+//        bTemp=findViewById(R.id.bTemp);
+//        bTemp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                clearFile();
+//                System.out.println("file: "+readFile(fileName)+"end");
+//            }
+//        });
 
 
     }
@@ -228,9 +219,9 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
 
                                                         }
                                                     };
-                                                    cheatRequest cheatRequest=new cheatRequest(sID, cIDList.get(index),cheatSID,cheatListener);
+                                                    CheatRequest CheatRequest =new CheatRequest(sID, cIDList.get(index),cheatSID,cheatListener);
                                                     RequestQueue queue = Volley.newRequestQueue(StudentAreaActivity.this);
-                                                    queue.add(cheatRequest);
+                                                    queue.add(CheatRequest);
                                                 }else{
                                                     //正常sign in
                                                     System.out.println("正常sign in");

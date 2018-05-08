@@ -55,6 +55,15 @@ public class GPS_Service extends Service {
         };
         locationManager=(LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,3000,0,listener);
+        if (locationManager != null) {
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                Intent i=new Intent("location_update");
+                i.putExtra("latitude",location.getLatitude());
+                i.putExtra("longtitude",location.getLongitude());
+                sendBroadcast(i);
+            }
+        }
 
     }
 
