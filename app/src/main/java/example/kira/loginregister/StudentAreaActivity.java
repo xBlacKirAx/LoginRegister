@@ -97,11 +97,7 @@ public class StudentAreaActivity extends AppCompatActivity implements AdapterVie
         spClass.setOnItemSelectedListener(this);
         String message = name + ", you are logged in as student";
         welcomeMessage.setText(message);
-        if (!runtime_permissions()) {
-            Intent gpsIntent = new Intent(getApplicationContext(), GPS_Service.class);
-            startService(gpsIntent);
 
-        }
 
 //        bTemp=findViewById(R.id.bTemp);
 //        bTemp.setOnClickListener(new View.OnClickListener() {

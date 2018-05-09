@@ -43,7 +43,7 @@
     mysqli_stmt_bind_param($statement, "sssss", $sID,$cID, $date, $time,$verificationCode);
     $ClassTime = mysqli_fetch_assoc(mysqli_query($con, "SELECT CTime FROM Course WHERE CID = '$cID'"))["CTime"];
 
-    $iverificationCode = mysqli_fetch_assoc(mysqli_query($con,"SELECT VerificationCode FROM VerificationCode WHERE CID='$cID' AND Date=CURRENT_DATE"))["VerificationCode"];
+    $iverificationCode = mysqli_fetch_assoc(mysqli_query($con,"SELECT VerificationCode FROM VerificationCode WHERE CID='$cID' AND Date= '$date'"))["VerificationCode"];
     $response = array();
     $response["success"] = false;  
 	
